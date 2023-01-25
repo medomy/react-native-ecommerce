@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         marginVertical: 0.5 * SIZES.margin,
         width: SIZES.fullWidth,
         padding: 0.5 * SIZES.padding,
-        alignSelf : "center"
+        alignSelf: "center"
     },
     input: {
         width: SIZES.fullWidth,
@@ -40,6 +40,11 @@ const styles = StyleSheet.create({
     btnsWrapTxt: {
         ...FONTS.h3,
         fontWeight: "700"
+    },
+    errTxt: {
+        color: COLORS.danger,
+        ...FONTS.body5,
+        marginVertical : 0.5 * SIZES.margin
     }
 })
 
