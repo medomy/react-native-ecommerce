@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/Entypo'
 import Btn from '../../btn';
 import { validateEmptyInput } from '../../../utils/validate'
 import { useLoginSiteMutation } from '../../../store/slices/authSlice'
+import { getUserAsyncStorage, setUserAsyncStorage } from '../../../services/asyncStorageUser'
 
 interface props {
     emitLoadingVal: (loading: boolean) => void;
@@ -26,6 +27,7 @@ export default function LoginForm({ emitLoadingVal }: props) {
         password: null
     })
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [authErr, setAuthErr] = useState<null | string>(null);
     const isDark = useIsDarkMode();
     // rtk query mutation results
     const [loginSite, response] = useLoginSiteMutation();
@@ -78,12 +80,34 @@ export default function LoginForm({ emitLoadingVal }: props) {
     }
     // login function
     const login = async () => {
-        if(validateEmptyInput(formVals.userName) && validateEmptyInput(formVals.password)){
-            emitLoadingVal(true);
-            const token = await loginSite(formVals);
-            console.log(token , response);
-            emitLoadingVal(false);
+        if (validateEmptyInput(formVals.userName) && validateEmptyInput(formVals.password)) {
+            try {
+                emitLoadingVal(true);
+                const res: any = await loginSite(formVals);
+                console.log(res);
+                console.log(response);
+                if (res.data) {
+                    setUserAsyncStorage(res.data.token);
+                    setAuthErr(null);
+                    //TODO: add navigation here to go to home after signing
+                }
+                else if (res.error) setAuthErr(res.error.data);
+                emitLoadingVal(false);
+            } catch (err) {
+                emitLoadingVal(false);
+                setAuthErr(`${err}`);
+            }
         }
+        else setFormErrs({
+            userName: "required user name",
+            password: "required password"
+        })
+    }
+
+    const resumeAsVisitor = async () => {
+        //TODO: add navigation here to go to home after signing and remove the console bit
+        const user = await getUserAsyncStorage();
+        console.log(user);
     }
     return (
         <View style={styles.formWrap}>
@@ -120,9 +144,10 @@ export default function LoginForm({ emitLoadingVal }: props) {
                 <View style={styles.btnWrap}>
                     <Btn bgColor={isDark ? COLORS.white : COLORS.primary} txt='Login' txtColor={isDark ? COLORS.black : COLORS.white} onPress={login} width={SIZES.fullWidth} />
                 </View>
+                {authErr && <Text style={styles.errTxt}>{authErr}</Text>}
                 <Text style={[styles.btnsWrapTxt, { color: !isDark ? COLORS.darkgray : COLORS.white }]}>OR</Text>
                 <View style={styles.btnWrap}>
-                    <Btn bgColor={COLORS.tintColor} txt='Resume as a visitor' txtColor={COLORS.white} onPress={() => { }} width={SIZES.fullWidth} />
+                    <Btn bgColor={COLORS.tintColor} txt='Resume as a visitor' txtColor={COLORS.white} onPress={resumeAsVisitor} width={SIZES.fullWidth} />
                 </View>
             </View>
         </View>
