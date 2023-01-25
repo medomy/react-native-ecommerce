@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { BottomTabBarButtonProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
 import { useIsDarkMode } from '../../hooks/useIsDarkMode';
 import WishListScreen from '../../screens/wishList';
@@ -9,6 +9,9 @@ import { COLORS, SIZES } from '../../constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const TabBar = createBottomTabNavigator();
+const renderBottomBtn = ({ children , onPress }: BottomTabBarButtonProps) => (<TouchableOpacity style={styles.btmBtn} onPress={onPress}>
+    {children}
+</TouchableOpacity>)
 const MainTabBar = () => {
     const isDark = useIsDarkMode();
     return (
@@ -17,23 +20,26 @@ const MainTabBar = () => {
                 headerShown: false,
                 tabBarStyle: styles.bottomTabBarCustomStyle,
                 tabBarActiveTintColor: COLORS.white,
-                tabBarInactiveTintColor: COLORS.socendry,
+                tabBarInactiveTintColor: COLORS.tintColor,
                 tabBarShowLabel: false
             }
         }}>
             <TabBar.Screen name='WishList' component={WishListScreen} options={({ navigation }) => (
                 {
                     tabBarIcon: ({ focused, color, size }) => (<Icon name='heart' size={SIZES.iconSize} color={color} />),
+                    tabBarButton: renderBottomBtn
                 }
             )} />
             <TabBar.Screen name='Home' component={Home} options={({ navigation }) => (
                 {
-                    tabBarIcon: ({ focused, color, size }) => (<Icon name='home' size={SIZES.iconSize} color={color} />)
+                    tabBarIcon: ({ focused, color, size }) => (<Icon name='home' size={SIZES.iconSize} color={color} />),
+                    tabBarButton: renderBottomBtn
                 }
             )} />
             <TabBar.Screen name='Cart' component={CartScreen} options={({ navigation }) => (
                 {
-                    tabBarIcon: ({ focused, color, size }) => (<Icon name='shopping-cart' size={SIZES.iconSize} color={color} />)
+                    tabBarIcon: ({ focused, color, size }) => (<Icon name='shopping-cart' size={SIZES.iconSize} color={color} />),
+                    tabBarButton: renderBottomBtn
                 }
             )} />
         </TabBar.Navigator>
@@ -44,7 +50,7 @@ export default MainTabBar
 
 const styles = StyleSheet.create({
     bottomTabBarCustomStyle: {
-        borderRadius: SIZES.radius,
+        borderRadius: SIZES.radius2,
         padding: 5 * SIZES.padding2,
         justifyContent: "center",
         alignItems: "center",
@@ -54,6 +60,13 @@ const styles = StyleSheet.create({
         left: 0.05 * SIZES.fullScreenWidth,
         bottom: 30,
         backgroundColor: COLORS.primary,
-        elevation : 0
+        elevation: 0
+    },
+    btmBtn: {
+        flex: 1,
+        backgroundColor: COLORS.transparent,
+        height : 25,
+        bottom: 30,
+        alignSelf : "center"
     }
 })

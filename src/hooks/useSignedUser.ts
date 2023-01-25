@@ -3,13 +3,22 @@ import SignedUser from "../types/user"
 import { getUserAsyncStorage } from "../services/asyncStorageUser";
 
 export const useSignedUser = () => {
-    const [user, setUser] = useState<SignedUser | null>(null);
+    const [userAndLoading, setUserAndLoading] = useState<{
+        signedUser: SignedUser | null,
+        isLoading: boolean
+    }>({
+        signedUser: null,
+        isLoading: true
+    });
     const setData = async () => {
         const _user = await getUserAsyncStorage();
-        setUser(_user);
+        setUserAndLoading({
+            signedUser: _user,
+            isLoading: false
+        });
     }
     useEffect(() => {
         setData();
     }, []);
-    return user;
+    return userAndLoading;
 }
