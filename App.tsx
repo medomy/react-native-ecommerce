@@ -28,6 +28,8 @@ import {
 import { Provider } from 'react-redux';
 import { store } from './src/store/store';
 import Navigation from './src/navigation';
+import { useIsDarkMode } from './src/hooks/useIsDarkMode';
+import { COLORS } from './src/constants';
 
 // type SectionProps = PropsWithChildren<{
 //   title: string;
@@ -61,6 +63,7 @@ import Navigation from './src/navigation';
 
 function App(): JSX.Element {
   // const isDarkMode = useColorScheme() === 'dark';
+  const isDark = useIsDarkMode();
 
   // const backgroundStyle = {
   //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -102,7 +105,7 @@ function App(): JSX.Element {
     //   </ScrollView>
     // </SafeAreaView>
     <Provider store={store}>
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1 , backgroundColor : isDark ? COLORS.primary : COLORS.white }}>
         <Navigation />
       </View>
     </Provider>
@@ -110,22 +113,22 @@ function App(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  // sectionContainer: {
+  //   marginTop: 32,
+  //   paddingHorizontal: 24,
+  // },
+  // sectionTitle: {
+  //   fontSize: 24,
+  //   fontWeight: '600',
+  // },
+  // sectionDescription: {
+  //   marginTop: 8,
+  //   fontSize: 18,
+  //   fontWeight: '400',
+  // },
+  // highlight: {
+  //   fontWeight: '700',
+  // },
 });
 
 export default App;
