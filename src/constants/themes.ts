@@ -13,7 +13,12 @@ export const COLORS = {
     lightGray4: "#F8F8F9",
     transparent: "transparent",
     darkgray: '#898C95',
-    danger: "#df4759"
+    danger: "#df4759",
+    // colors for colors list
+    firstColor: "#c5b6b2",
+    lightBlue: "#94aefa",
+    lightPink: "#ffd6d6",
+    lightViolit: "#9d83e7"
 }
 
 export const SIZES = {
