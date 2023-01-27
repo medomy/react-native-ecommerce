@@ -6,6 +6,7 @@ import LoginScreen from '../screens/loginScreen';
 import MainTabBar from './bottomTabBar/bottomTabBar';
 import { useSignedUser } from '../hooks/useSignedUser';
 import LoadingMainScreenMyScreen from '../screens/loadingScreen';
+import DetailsScreen from '../screens/details';
 
 const StackNavigation = createNativeStackNavigator();
 export default function Navigation() {
@@ -20,6 +21,7 @@ export default function Navigation() {
                 <StackNavigation.Screen name='_loading' component={LoadingMainScreenMyScreen} />
                 <StackNavigation.Screen name='login' component={LoginScreen} />
                 <StackNavigation.Screen name='root' component={MainTabBar} />
+                <StackNavigation.Screen name='details' component={DetailsScreen} />
             </StackNavigation.Navigator>
         </NavigationContainer>
     )

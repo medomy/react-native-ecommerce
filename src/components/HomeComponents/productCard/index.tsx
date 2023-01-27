@@ -6,13 +6,21 @@ import { IconButton } from '@react-native-material/core'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Image } from 'react-native'
 import { SIZES } from '../../../constants'
+import { useNavigation } from '@react-navigation/native'
 
 interface props {
     product: Product
 }
 export default function ProductCard({ product }: props) {
+    const navigation = useNavigation();
+
+    const goToDetails = () => {
+        navigation.navigate("details" as never, {
+            productId: product.id
+        } as never)
+    }
     return (
-        <Pressable style={styles.procuctCard}>
+        <Pressable style={styles.procuctCard} onPress={goToDetails}>
             <View style={styles.imgContainer}>
                 <IconButton icon={<Icon name='heart-o' size={SIZES.iconSize} />} style={styles.iconBtn} />
                 <Image

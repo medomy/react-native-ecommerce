@@ -7,6 +7,7 @@ import CategoriesList from '../../components/HomeComponents/categoriesList'
 import { useGetAllProductsQuery } from '../../store/slices/productSlice'
 import ProductsList from '../../components/HomeComponents/productsList'
 import { filterProducts } from '../../utils/filterProducts'
+import MostPopular from '../../components/HomeComponents/mostPopularSec/mostPopuler'
 
 const Home = () => {
   const { data } = useGetAllProductsQuery();
@@ -19,11 +20,14 @@ const Home = () => {
     <View style={{ flex: 1 }}>
       <HomeHeader />
       <ScrollView
-      showsVerticalScrollIndicator = {false}>
+        showsVerticalScrollIndicator={false}
+      >
         <HeaderTitle title='Find Your Clothes' />
         <DiscountSec />
         <CategoriesList selected={selectedCategory} setSelected={changeSelectedCategory} />
         {data && <ProductsList products={filterProducts(selectedCategory, data)} />}
+        {data && <MostPopular />}
+        <View style={styles.emptyViewFooter}></View>
       </ScrollView>
     </View>
   )
@@ -31,4 +35,8 @@ const Home = () => {
 
 export default Home
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  emptyViewFooter: {
+    height: 100,
+  }
+})
