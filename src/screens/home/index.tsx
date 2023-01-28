@@ -8,6 +8,7 @@ import { useGetAllProductsQuery } from '../../store/slices/productSlice'
 import ProductsList from '../../components/HomeComponents/productsList'
 import { filterProducts } from '../../utils/filterProducts'
 import MostPopular from '../../components/HomeComponents/mostPopularSec/mostPopuler'
+import { COLORS } from '../../constants'
 
 const Home = () => {
   const { data } = useGetAllProductsQuery();
@@ -17,7 +18,7 @@ const Home = () => {
     setSelectedCategory(category);
   }
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1}}>
       <HomeHeader />
       <ScrollView
         showsVerticalScrollIndicator={false}

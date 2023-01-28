@@ -4,9 +4,11 @@ import styles from './styles'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { COLORS, SIZES } from '../../../constants'
 import { useNavigation } from '@react-navigation/native'
+import { useIsDarkMode } from '../../../hooks/useIsDarkMode'
 
 export default function DetailsHeader() {
     const navigation = useNavigation();
+    const isDark = useIsDarkMode();
     const goBack = () => {
         navigation.goBack();
     }

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { FONTS, SIZES } from "../../../constants";
+import { COLORS, FONTS, SIZES } from "../../../constants";
 
 const styles = StyleSheet.create({
     btn: {
@@ -8,7 +8,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderRadius: SIZES.btnRadius,
-        paddingHorizontal:1.5* SIZES.padding2
+        paddingHorizontal:1.5* SIZES.padding2,
+        borderWidth : 1,
+        borderColor : COLORS.lightGray3
     },
     txt: {
         ...FONTS.body3

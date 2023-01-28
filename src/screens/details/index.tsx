@@ -7,6 +7,7 @@ import ImgSecDetails from '../../components/detailsComponents/imgSec'
 import TitleAndRatingDetails from '../../components/detailsComponents/detailsTitleAndRating'
 import SizesList from '../../components/detailsComponents/sizesList'
 import ColorsList from '../../components/detailsComponents/colorsList'
+import ExpandableDescription from '../../components/detailsComponents/expandableDescription'
 
 type RouteParams = {
     productId: number
@@ -26,11 +27,13 @@ const DetailsScreen = () => {
         console.log(data.category);
         return (
             <View style={{ flex: 1 }}>
-                <ScrollView>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}>
                     <ImgSecDetails product={data} />
                     <TitleAndRatingDetails title={data.title} rating={data.rating.rate} reviews={data.rating.count} price={data.price} />
                     {data.category === "men's clothing" || data.category === "women's clothing" ? <SizesList /> : null}
                     {data.category === "men's clothing" || data.category === "women's clothing" ? <ColorsList /> : null}
+                    <ExpandableDescription description={data.description} />
                 </ScrollView>
             </View>
         )
