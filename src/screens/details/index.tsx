@@ -43,8 +43,8 @@ const DetailsScreen = () => {
             dispatch(addToCart({ userId: user.id, item: cartItem }));
             // to check cart items
             const asyncCart = await AsyncStorageCartItems.getCartItemsByUserId(user.id);
-            console.log("async cart", asyncCart.map((item)=> item.id));
-            console.log("redux cartItems", cartItems.map((item)=> item.id));
+            console.log("async cart", asyncCart.map((item) => item.id));
+            console.log("redux cartItems", cartItems.map((item) => item.id));
         } catch (e) {
             console.error(e);
         }
@@ -67,7 +67,7 @@ const DetailsScreen = () => {
                     {data.category === "men's clothing" || data.category === "women's clothing" ? <ColorsList setColorForCart={(c) => colorCart.current = c} /> : null}
                     <ExpandableDescription description={data.description} />
                     <View style={styles.btnWrap}>
-                        <Btn width={"80%"} txt='Add to Cart' bgColor={COLORS.primary} txtColor={COLORS.white} onPress={addToCartDetailsPage} />
+                        <Btn width={SIZES.fullWidth} txt='Add to Cart' bgColor={COLORS.primary} txtColor={COLORS.white} onPress={addToCartDetailsPage} />
                     </View>
                 </ScrollView>
             </View>

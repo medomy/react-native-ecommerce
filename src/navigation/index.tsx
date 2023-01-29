@@ -9,6 +9,7 @@ import LoadingMainScreenMyScreen from '../screens/loadingScreen';
 import DetailsScreen from '../screens/details';
 import { COLORS } from '../constants';
 import { useIsDarkMode } from '../hooks/useIsDarkMode';
+import CartScreen from '../screens/cart';
 
 const StackNavigation = createNativeStackNavigator();
 export default function Navigation() {
@@ -46,6 +47,7 @@ export default function Navigation() {
                     }
                 })} />
                 <StackNavigation.Screen name='details' component={DetailsScreen} />
+                <StackNavigation.Screen name='cart' component={CartScreen} />
             </StackNavigation.Navigator>
         </NavigationContainer>
     )

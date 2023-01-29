@@ -7,20 +7,23 @@ import Home from '../../screens/home';
 import CartScreen from '../../screens/cart';
 import { COLORS, SIZES } from '../../constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 const TabBar = createBottomTabNavigator();
-const renderBottomBtn = ({ children , onPress }: BottomTabBarButtonProps) => (<TouchableOpacity style={styles.btmBtn} onPress={onPress}>
+const renderBottomBtn = ({ children, onPress }: BottomTabBarButtonProps) => (<TouchableOpacity style={styles.btmBtn} onPress={onPress}>
     {children}
 </TouchableOpacity>)
 const MainTabBar = () => {
     const isDark = useIsDarkMode();
+    const numOfItemsInCart = useSelector((state: RootState) => state.cart.totalItems);
     return (
         <TabBar.Navigator initialRouteName='Home' screenOptions={({ route }) => {
             return {
                 headerShown: false,
                 tabBarStyle: styles.bottomTabBarCustomStyle,
-                tabBarActiveTintColor: COLORS.white,
-                tabBarInactiveTintColor: COLORS.tintColor,
+                tabBarActiveTintColor: COLORS.tintColor,
+                tabBarInactiveTintColor: COLORS.white,
                 tabBarShowLabel: false
             }
         }}>
@@ -39,7 +42,9 @@ const MainTabBar = () => {
             <TabBar.Screen name='Cart' component={CartScreen} options={({ navigation }) => (
                 {
                     tabBarIcon: ({ focused, color, size }) => (<Icon name='shopping-cart' size={SIZES.iconSize} color={color} />),
-                    tabBarButton: renderBottomBtn
+                    tabBarButton: renderBottomBtn,
+                    // tabBarBadge: numOfItemsInCart,
+                    // tabBarBadgeStyle: styles.badge
                 }
             )} />
         </TabBar.Navigator>
@@ -65,8 +70,19 @@ const styles = StyleSheet.create({
     btmBtn: {
         flex: 1,
         backgroundColor: COLORS.transparent,
-        height : 25,
+        height: 25,
         bottom: 30,
-        alignSelf : "center"
+        alignSelf: "center"
+    },
+    badge: {
+        backgroundColor: COLORS.tintColor,
+        top: -10,
+        width: 20,
+        position: "relative",
+        height: 20,
+        borderRadius: 10,
+        left: -30,
+        justifyContent: "center",
+        alignItems: "center"
     }
 })

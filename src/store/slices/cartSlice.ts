@@ -30,23 +30,30 @@ export const cartSlice = createSlice({
             state.totalItems = state.cartItems.length;
             state.totalPrice = state.cartItems.reduce((a, b) => a + b.count * b.price, 0);
         },
-        removeFromCart: (state, payload: PayloadAction<{ productId: number, userId: number }>) => {
-            state.cartItems = state.cartItems.filter((item) => item.id !== payload.payload.productId && item.userId !== payload.payload.userId);
+        removeFromCart: (state, payload: PayloadAction<{ productId: number }>) => {
+            state.cartItems = state.cartItems.filter((item) => item.id !== payload.payload.productId);
             state.totalItems = state.cartItems.length;
             state.totalPrice = state.cartItems.reduce((a, b) => a + b.count * b.price, 0);
         },
-        increaseElement: (state, payload: PayloadAction<{ userId: number, productId: number }>) => {
-            state.cartItems.find((item) => item.id === payload.payload.productId && item.userId === payload.payload.userId)!.count += 1;
+        increaseElement: (state, payload: PayloadAction<{ productId: number }>) => {
+            state.cartItems.find((item) => item.id === payload.payload.productId)!.count += 1;
             state.totalItems = state.cartItems.length;
             state.totalPrice = state.cartItems.reduce((a, b) => a + b.count * b.price, 0);
         },
-        decreaseElement: (state, payload: PayloadAction<{ userId: number, productId: number }>) => {
-            state.cartItems.find((item) => item.id === payload.payload.productId && item.userId === payload.payload.userId)!.count -= 1;
+        decreaseElement: (state, payload: PayloadAction<{ productId: number }>) => {
+            if (state.cartItems.find((item) => item.id === payload.payload.productId)!.count > 1) {
+                state.cartItems.find((item) => item.id === payload.payload.productId)!.count -= 1;
+                state.totalItems = state.cartItems.length;
+                state.totalPrice = state.cartItems.reduce((a, b) => a + b.count * b.price, 0);
+            }
+        },
+        setCart: (state, payload: PayloadAction<CartItem[]>) => {
+            state.cartItems = payload.payload;
             state.totalItems = state.cartItems.length;
             state.totalPrice = state.cartItems.reduce((a, b) => a + b.count * b.price, 0);
-        },
+        }
     }
 })
-export const { addToCart, removeFromCart, increaseElement, decreaseElement } = cartSlice.actions
+export const { addToCart, removeFromCart, increaseElement, decreaseElement, setCart } = cartSlice.actions
 
 export default cartSlice.reducer;

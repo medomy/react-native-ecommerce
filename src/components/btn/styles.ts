@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         padding: 1.8 * SIZES.padding,
         alignItems: "center",
         justifyContent: "center",
-        alignSelf: "center"
+        //alignSelf: "center"
     }
 });
 

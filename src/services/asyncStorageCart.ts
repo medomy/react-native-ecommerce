@@ -73,5 +73,37 @@ class AsyncStorageCartItems {
             throw new Error(`could not set items , ${e}`)
         }
     }
+
+    // increase and decrease funcs
+    static async increaseElementCountAsyncStorage(id: number) {
+        try {
+            const items = await this.getCartItems();
+            items!.find((item) => item.id === id)!.count += 1;
+            await this.setCartItemsAsyncStorage(items!);
+        } catch (err) {
+            throw new Error(`can not increase , ${err}`)
+        }
+    }
+    static async decreaseElementCountAsyncStorage(id: number) {
+        try {
+            const items = await this.getCartItems();
+            if (items!.find((item) => item.id === id)!.count > 1) {
+                items!.find((item) => item.id === id)!.count += 1;
+                await this.setCartItemsAsyncStorage(items!);
+            }
+        } catch (err) {
+            throw new Error(`can not decrease , ${err}`)
+        }
+    }
+    // remove item
+    static async removeItemAsyncStorage(id: number) {
+        try {
+            const items = await this.getCartItems();
+            let _items = items?.filter((item) => item.id !== id);
+            await this.setCartItemsAsyncStorage(_items!);
+        } catch (e) {
+            throw new Error(`can not decrease , ${e}`);
+        }
+    }
 }
 export default AsyncStorageCartItems;

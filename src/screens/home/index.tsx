@@ -9,16 +9,17 @@ import ProductsList from '../../components/HomeComponents/productsList'
 import { filterProducts } from '../../utils/filterProducts'
 import MostPopular from '../../components/HomeComponents/mostPopularSec/mostPopuler'
 import { COLORS } from '../../constants'
+import { useInitCartItems } from '../../hooks/useInitializeCartItems'
 
 const Home = () => {
   const { data } = useGetAllProductsQuery();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
-
+  useInitCartItems();
   const changeSelectedCategory = (category: string) => {
     setSelectedCategory(category);
   }
   return (
-    <View style={{ flex: 1}}>
+    <View style={{ flex: 1 }}>
       <HomeHeader />
       <ScrollView
         showsVerticalScrollIndicator={false}
