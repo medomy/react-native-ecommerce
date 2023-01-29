@@ -27,13 +27,17 @@ const colors: Color[] = [
     },
 
 ]
-const ColorsList = () => {
+interface props {
+    setColorForCart: (c: Color) => void
+}
+const ColorsList = ({ setColorForCart }: props) => {
     const [selectedColor, setSelectedColor] = useState<Color>({
         name: "fohlo2y",
         hex: COLORS.firstColor
     });
     const selectColor = (c: Color) => {
         setSelectedColor(c);
+        setColorForCart(c);
     }
     const listRenderer: ListRenderItem<Color> = ({ item }) => (<ColorCard color={item} selectedColor={selectedColor} selectColor={selectColor} />)
 

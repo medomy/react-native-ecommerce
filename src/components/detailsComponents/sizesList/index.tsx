@@ -5,13 +5,17 @@ import { FlatList } from 'react-native';
 import { ListRenderItem } from 'react-native';
 import SizeCard from '../sizesCard';
 
-const SizesList = () => {
+interface props {
+    setSizeForCart: (s: "s" | "m" | "l" | "xl" | "xxl") => void,
+}
+const SizesList = ({ setSizeForCart }: props) => {
     const [selectedSize, setSelectedSize] = useState<"s" | "m" | "l" | "xl" | "xxl">("s");
     const sizes = useRef<("s" | "m" | "l" | "xl" | "xxl")[]>([
         "s", "m", "l", "xl", "xxl"
     ])
     const selectSize = (size: "s" | "m" | "l" | "xl" | "xxl") => {
         setSelectedSize(size);
+        setSizeForCart(size);
     }
     const listRenderer: ListRenderItem<"s" | "m" | "l" | "xl" | "xxl"> = ({ item }) => (<SizeCard size={item} selectedSize={selectedSize} select={selectSize} />);
 
@@ -23,7 +27,7 @@ const SizesList = () => {
                 renderItem={listRenderer}
                 keyExtractor={(item) => item}
                 horizontal
-                showsHorizontalScrollIndicator = {false} />
+                showsHorizontalScrollIndicator={false} />
         </View>
     )
 }

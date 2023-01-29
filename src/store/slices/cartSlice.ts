@@ -19,13 +19,13 @@ export const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        addToCart: (state, payload: PayloadAction<{ userId: number, item: Product }>) => {
+        addToCart: (state, payload: PayloadAction<{ userId: number, item: CartItem }>) => {
             //const cartItem = state.cartItems.find((it)=> it.id === payload.payload.item.id);
             if (state.cartItems.find((it) => it.id === payload.payload.item.id && it.userId === payload.payload.userId)) {
                 state.cartItems.find((it) => it.id === payload.payload.item.id && it.userId === payload.payload.userId)!.count += 1;
             }
             else {
-                state.cartItems.push({ ...payload.payload.item, userId: payload.payload.userId, count: 1 });
+                state.cartItems.push({ ...payload.payload.item });
             }
             state.totalItems = state.cartItems.length;
             state.totalPrice = state.cartItems.reduce((a, b) => a + b.count * b.price, 0);
