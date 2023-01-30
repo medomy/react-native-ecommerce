@@ -1,4 +1,5 @@
 export default interface SignedUser {
     id: number,
-    userName: string
+    userName: string,
+    img?: string
 }

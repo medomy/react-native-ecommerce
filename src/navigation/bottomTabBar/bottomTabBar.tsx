@@ -9,6 +9,7 @@ import { COLORS, SIZES } from '../../constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import ProfileScreen from '../../screens/profile';
 
 const TabBar = createBottomTabNavigator();
 const renderBottomBtn = ({ children, onPress }: BottomTabBarButtonProps) => (<TouchableOpacity style={styles.btmBtn} onPress={onPress}>
@@ -39,9 +40,9 @@ const MainTabBar = () => {
                     tabBarButton: renderBottomBtn
                 }
             )} />
-            <TabBar.Screen name='Cart' component={CartScreen} options={({ navigation }) => (
+            <TabBar.Screen name='profile' component={ProfileScreen} options={({ navigation }) => (
                 {
-                    tabBarIcon: ({ focused, color, size }) => (<Icon name='shopping-cart' size={SIZES.iconSize} color={color} />),
+                    tabBarIcon: ({ focused, color, size }) => (<Icon name='user' size={SIZES.iconSize} color={color} />),
                     tabBarButton: renderBottomBtn,
                     // tabBarBadge: numOfItemsInCart,
                     // tabBarBadgeStyle: styles.badge
