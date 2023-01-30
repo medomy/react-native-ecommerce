@@ -3,7 +3,11 @@ import React from 'react'
 import { COLORS, FONTS, SIZES } from '../../../constants'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from '@react-navigation/native'
-const CartHeader = () => {
+
+interface props {
+    title: string
+}
+const CartHeader = ({ title }: props) => {
     const navigation = useNavigation();
 
     const goBack = () => {
@@ -14,7 +18,7 @@ const CartHeader = () => {
             <TouchableOpacity onPress={goBack}>
                 <Icon name='arrow-back' size={SIZES.iconSize} color={COLORS.black} />
             </TouchableOpacity>
-            <Text style={styles.title}>My Cart</Text>
+            <Text style={styles.title}>{title}</Text>
         </View>
     )
 }
@@ -27,12 +31,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 1.5 * SIZES.padding2,
         alignItems: "center",
         flexDirection: "row",
-        marginVertical : SIZES.margin2
+        marginVertical: SIZES.margin2
     },
     title: {
-        textAlign:"center",
+        textAlign: "center",
         ...FONTS.h3,
         color: COLORS.darkgray,
-        flex : 1
+        flex: 1
     }
 })

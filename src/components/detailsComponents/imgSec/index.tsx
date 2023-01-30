@@ -10,7 +10,7 @@ interface props {
 export default function ImgSecDetails({ product }: props) {
     return (
         <View style={styles.container}>
-            <DetailsHeader />
+            <DetailsHeader product={product} />
             <Image
                 source={{ uri: product.image }}
                 style={styles.img}

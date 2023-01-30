@@ -22,7 +22,7 @@ const CartScreen = () => {
   else {
     return (
       <View style={{ flex: 1 }}>
-        <CartHeader />
+        <CartHeader title='My Cart' />
         <ScrollView>
           <CartList cartItems={cartItems} />
           <PromoCodeInput />

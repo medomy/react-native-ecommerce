@@ -10,7 +10,7 @@ const CartList = ({ cartItems }: props) => {
     return (
         <View style={{ flex: 1 }}>
             {cartItems.map((item) => (
-                <CartCard cartItem={item} key={item.id} />
+                <CartCard cartItem={item} key={item.id} isWishList={false} />
             ))}
         </View>
     )
