@@ -3,6 +3,7 @@ import React from 'react'
 import { COLORS, SIZES } from '../../../constants'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import ImagePicker from 'react-native-image-crop-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 interface props {
     profilePic: string,
     changeProfilePic: (uri: string) => void,
@@ -11,12 +12,18 @@ const ProfileCircle = ({ profilePic, changeProfilePic }: props) => {
 
     const openImgPicker = async () => {
         try {
-            const img = await ImagePicker.openPicker({
-                width: 300,
-                height: 300,
-                cropping: true
-            })
-            changeProfilePic(img.path);
+            // const img = await ImagePicker.openPicker({
+            //     width: 300,
+            //     height: 300,
+            //     cropping: true
+            // })
+            // changeProfilePic(img.path);
+            const result = await launchImageLibrary({
+                mediaType: "photo"
+            });
+            if (result.assets) {
+                changeProfilePic(result!.assets[0]!.uri!)
+            }
         } catch (err) { console.warn(err) }
     }
     return (
