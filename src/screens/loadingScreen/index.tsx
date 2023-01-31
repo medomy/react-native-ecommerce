@@ -13,6 +13,7 @@ const LoadingMainScreenMyScreen = () => {
     const renderRef = useRef<number>(0);
     // navigation
     const navigation = useNavigation();
+    console.log(userAndLoading , renderRef.current);
     useEffect(() => {
         if (renderRef.current === 0) renderRef.current += 1;
         else {

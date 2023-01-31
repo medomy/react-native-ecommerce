@@ -36,13 +36,13 @@ const DetailsScreen = () => {
             const user = await getUserAsyncStorage();
             const cartItem: CartItem = {
                 ...data!,
-                userId: user.id,
-                count: 1
+                userId: user ? user.id : 100,
+                count: 1,
             }
             await AsyncStorageCartItems.addToCartItems(cartItem);
-            dispatch(addToCart({ userId: user.id, item: cartItem }));
+            dispatch(addToCart({ userId: user ? user.id : 100, item: cartItem }));
             // to check cart items
-            const asyncCart = await AsyncStorageCartItems.getCartItemsByUserId(user.id);
+            const asyncCart = await AsyncStorageCartItems.getCartItemsByUserId(user ? user.id : 100);
             console.log("async cart", asyncCart.map((item) => item.id));
             console.log("redux cartItems", cartItems.map((item) => item.id));
         } catch (e) {

@@ -10,6 +10,7 @@ import Btn from '../../btn';
 import { validateEmptyInput } from '../../../utils/validate'
 import { useLoginSiteMutation } from '../../../store/slices/authSlice'
 import { getUserAsyncStorage, setUserAsyncStorage } from '../../../services/asyncStorageUser'
+import { useNavigation } from '@react-navigation/native'
 
 interface props {
     emitLoadingVal: (loading: boolean) => void;
@@ -29,6 +30,7 @@ export default function LoginForm({ emitLoadingVal }: props) {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [authErr, setAuthErr] = useState<null | string>(null);
     const isDark = useIsDarkMode();
+    const navigation = useNavigation();
     // rtk query mutation results
     const [loginSite, response] = useLoginSiteMutation();
     // control form controls function
@@ -90,6 +92,7 @@ export default function LoginForm({ emitLoadingVal }: props) {
                     setUserAsyncStorage(res.data.token);
                     setAuthErr(null);
                     //TODO: add navigation here to go to home after signing
+                    navigation.navigate("root" as never);
                 }
                 else if (res.error) setAuthErr(res.error.data);
                 emitLoadingVal(false);
@@ -106,8 +109,9 @@ export default function LoginForm({ emitLoadingVal }: props) {
 
     const resumeAsVisitor = async () => {
         //TODO: add navigation here to go to home after signing and remove the console bit
-        const user = await getUserAsyncStorage();
-        console.log(user);
+        // const user = await getUserAsyncStorage();
+        // console.log(user);
+        navigation.navigate("root" as never);
     }
     return (
         <View style={styles.formWrap}>

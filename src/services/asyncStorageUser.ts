@@ -12,7 +12,7 @@ export const setUserAsyncStorage = async (token: string) => {
     await AsyncStorage.setItem("signedUser", JSON.stringify(signedUser));
 }
 
-export const getUserAsyncStorage = async (): Promise<SignedUser> => {
+export const getUserAsyncStorage = async (): Promise<SignedUser | null> => {
     const user = await AsyncStorage.getItem("signedUser");
     return JSON.parse(user!);
 }

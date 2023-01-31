@@ -2,17 +2,20 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { CartItem } from '../../types/cartItem'
 import { Product } from '../../types/product'
+import SignedUser from '../../types/user'
 
 export interface CartSlice {
     cartItems: CartItem[],
     totalItems: number,
-    totalPrice: number
+    totalPrice: number,
+    user: SignedUser | null
 }
 
 const initialState: CartSlice = {
     cartItems: [],
     totalItems: 0,
-    totalPrice: 0
+    totalPrice: 0,
+    user: null
 }
 
 export const cartSlice = createSlice({
@@ -51,9 +54,12 @@ export const cartSlice = createSlice({
             state.cartItems = payload.payload;
             state.totalItems = state.cartItems.length;
             state.totalPrice = state.cartItems.reduce((a, b) => a + b.count * b.price, 0);
+        },
+        setUser: (state, payload: PayloadAction<SignedUser>) => {
+            state.user = payload.payload;
         }
     }
 })
-export const { addToCart, removeFromCart, increaseElement, decreaseElement, setCart } = cartSlice.actions
+export const { addToCart, removeFromCart, increaseElement, decreaseElement, setCart, setUser } = cartSlice.actions
 
 export default cartSlice.reducer;

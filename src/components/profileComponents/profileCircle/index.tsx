@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         width: SIZES.fullWidth,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 100,
+        marginTop: 50,
         position: "relative"
     },
     circle: {
