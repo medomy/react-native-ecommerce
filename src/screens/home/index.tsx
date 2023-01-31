@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import HomeHeader from '../../components/HomeComponents/header'
 import HeaderTitle from '../../components/HomeComponents/headerTitle'
@@ -8,7 +8,7 @@ import { useGetAllProductsQuery } from '../../store/slices/productSlice'
 import ProductsList from '../../components/HomeComponents/productsList'
 import { filterProducts } from '../../utils/filterProducts'
 import MostPopular from '../../components/HomeComponents/mostPopularSec/mostPopuler'
-import { COLORS } from '../../constants'
+import { COLORS, SIZES } from '../../constants'
 import { useInitCartItems } from '../../hooks/useInitializeCartItems'
 
 const Home = () => {
@@ -27,8 +27,12 @@ const Home = () => {
         <HeaderTitle title='Find Your Clothes' />
         <DiscountSec />
         <CategoriesList selected={selectedCategory} setSelected={changeSelectedCategory} />
-        {data && <ProductsList products={filterProducts(selectedCategory, data)} />}
-        {data && <MostPopular />}
+        {data ? <ProductsList products={filterProducts(selectedCategory, data)} /> : <View style={{ flex: 1, justifyContent: "center", alignItems: "center", marginVertical: SIZES.margin2 }}>
+          <ActivityIndicator color={COLORS.tintColor} size={SIZES.iconSize} />
+        </View>}
+        {data ? <MostPopular /> : <View style={{ flex: 1, justifyContent: "center", alignItems: "center" , marginVertical: SIZES.margin2 }}>
+          <ActivityIndicator color={COLORS.tintColor} size={SIZES.iconSize} />
+        </View>}
         <View style={styles.emptyViewFooter}></View>
       </ScrollView>
     </View>

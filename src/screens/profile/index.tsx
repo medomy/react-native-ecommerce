@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import SignedUser from '../../types/user'
 import { changeUserProfilePic, getUserAsyncStorage, logOutAsyncStorage } from '../../services/asyncStorageUser';
@@ -40,12 +40,15 @@ const ProfileScreen = () => {
             <View style={{ flex: 1 }}>
                 <ProfileCircle profilePic={user.img!} changeProfilePic={setProfilePic} />
                 <ProfileInfoSec userName={user.userName} />
-                {data && <View style={{ marginVertical: SIZES.margin }}>
+                {data ? <View style={{ marginVertical: SIZES.margin }}>
                     <InfoRowProfile title={"email"} subTitle={data.email} />
                     <InfoRowProfile title='city' subTitle={data.address.city} />
                     <InfoRowProfile title='street' subTitle={data.address.street} />
                     <InfoRowProfile title='mobile number' subTitle={data.phone} />
+                </View> : <View style={{ flex: 1, justifyContent: "center", alignItems: "center", marginVertical: SIZES.margin2 }}>
+                    <ActivityIndicator color={COLORS.tintColor} size={SIZES.iconSize} />
                 </View>}
+
                 <View style={styles.btnWrap}>
                     <Btn bgColor={COLORS.tintColor} txtColor={COLORS.white} txt={"log out"} width={SIZES.fullWidth} onPress={logOut} />
                 </View>
