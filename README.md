@@ -17,6 +17,11 @@ then start the app
   npm i
   npm start
 ```
+## Walk through
+- first we have login screen that will only show if you are not logged in before.
+- then we have a home screen shows the products and categories.
+- each of the products has a details screen that you can check out and add to cart from which.
+- we have a cart screen and wish list screen (wish list from the tabBar and cart from the home header).
 
 ## Tech Stack
 
